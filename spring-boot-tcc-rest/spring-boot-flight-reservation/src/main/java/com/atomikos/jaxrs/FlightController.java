@@ -7,8 +7,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +37,6 @@ public class FlightController {
     @PUT
     @Produces("application/json")
     public Response bookFlight(Flight flight) {
-  
     	flight.setState(State.BOOKED);
     	flightRepository.save(flight);
     	return Response.status(Status.CREATED).entity(flight).build();

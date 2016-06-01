@@ -7,5 +7,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>spring-boot-flight-reservation</module>
+		<module>spring-boot-hotel-reservation</module>
 	</modules>
 </project>
