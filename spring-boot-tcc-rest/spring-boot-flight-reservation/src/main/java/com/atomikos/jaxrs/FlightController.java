@@ -1,8 +1,12 @@
 package com.atomikos.jaxrs;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -34,8 +38,9 @@ public class FlightController {
 //    	return new Flight(departure.toDate(), "Paris",arrival.toDate(),"New-York", State.BOOKED);
 //    }
   
-    @PUT
+    @POST
     @Produces("application/json")
+    @Consumes("application/json")
     public Response bookFlight(Flight flight) {
     	flight.setState(State.BOOKED);
     	flightRepository.save(flight);
@@ -43,19 +48,22 @@ public class FlightController {
     }
     
     @PUT
-    @Path("/confirm/{flightId}")
-    @Produces("application/json")
-    public Response confirmFlight(Long flightId) {
+    @Path("/{flightId}")
+    @Produces("application/tcc")
+    @Consumes("application/tcc" )
+    public Response confirmFlight(@PathParam("flightId") Long flightId) {
     	Flight flight = flightRepository.findOne(flightId);
     	flight.setState(State.CONFIRMED);
-    	return Response.status(Status.OK).build();
+    	flightRepository.save(flight);
+    	return Response.status(Status.NO_CONTENT).build();
     }
-    @PUT
-    @Path("/cancel/{flightId}")
+    @DELETE
+    @Path("/{flightId}")
     @Produces("application/json")
     public Response cancelFlight(Long flightId) {
     	Flight flight = flightRepository.findOne(flightId);
     	flight.setState(State.CANCELLED);
-    	return Response.status(Status.OK).build();
+    	flightRepository.delete(flight.getId());
+    	return Response.status(Status.ACCEPTED).build();
     }
 }

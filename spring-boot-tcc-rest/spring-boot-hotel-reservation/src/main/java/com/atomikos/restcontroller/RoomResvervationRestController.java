@@ -3,6 +3,7 @@ package com.atomikos.restcontroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,28 +23,30 @@ public class RoomResvervationRestController {
 		return new Health("Spring Rest: Up and Running!");
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<RoomReservation> bookRoomReservation(
 			@RequestBody RoomReservation roomReservation) {
 		roomReservation.setState(State.BOOKED);
 		roomReservation = roomReservationRepository.save(roomReservation);
 		return new ResponseEntity<RoomReservation>(roomReservation,HttpStatus.CREATED);
 	}
-
-	@RequestMapping(path = "/confirm/{reservationId}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<RoomReservation> confirmRoomReservation(
-			Long reservationId) {
+	
+    
+	@RequestMapping(path = "/{reservationId}", method = RequestMethod.PUT, produces = "application/tcc" , consumes="application/tcc" )
+	public ResponseEntity<Void> confirmRoomReservation(
+			@PathVariable Long reservationId) {
 		RoomReservation roomReservation = roomReservationRepository.getOne(reservationId);
 		roomReservation.setState(State.CONFIRMED);
-		return new ResponseEntity<RoomReservation>(HttpStatus.OK);
+		roomReservationRepository.save(roomReservation);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(path = "/cancel/{reservationId}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<RoomReservation> cancelRoomReservation(
-			Long reservationId) {
+	@RequestMapping(path = "/{reservationId}", method = RequestMethod.DELETE, produces = "application/tcc" , consumes="application/tcc")
+	public ResponseEntity<Void> cancelRoomReservation(
+			@PathVariable Long reservationId) {
 		RoomReservation roomReservation = roomReservationRepository.getOne(reservationId);
-		roomReservation.setState(State.CANCELLED);
-		return new ResponseEntity<RoomReservation>(HttpStatus.OK);
+		roomReservationRepository.delete(roomReservation.getId());
+		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
 	}
 
 }
