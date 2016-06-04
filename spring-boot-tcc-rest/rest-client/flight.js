@@ -4,7 +4,7 @@ var bookedFlight;
 // book a flight
 var optionsFlight = {
 	host : 'localhost',
-	path : '/jersey/flight',
+	path : '/flight',
 	port : '8080',
 	method : 'POST',
 	headers : {
@@ -26,6 +26,7 @@ callbackFlight = function(response) {
 	});
 
 	response.on('end', function() {
+		console.log('Booked a light: ', str );
 		bookedFlight = JSON.parse(str);
 	});
 }

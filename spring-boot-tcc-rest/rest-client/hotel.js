@@ -27,6 +27,7 @@ callbackHotel = function(response) {
 	});
 
 	response.on('end', function() {
+		console.log('Booked a room in a hotel: ', str );
 		reservation = JSON.parse(str);
 	});
 }
