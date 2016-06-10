@@ -10,9 +10,9 @@ public class RoomReservation {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	private Date arrival;
-	
+
 	private Date departure;
 
 	private String roomNumber;
@@ -20,6 +20,8 @@ public class RoomReservation {
 	private Integer numberOfPerson;
 	
 	private State state;
+
+	private Date expires;
 	
 	public RoomReservation() {
 	
@@ -73,7 +75,7 @@ public class RoomReservation {
 		this.state = state;
 	}
 	public enum State {
-		BOOKED, CONFIRMED, CANCELLED;
+		BOOKED, CONFIRMED;
 	}
 
 	public Long getId() {
@@ -81,6 +83,14 @@ public class RoomReservation {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Date getExpires() {
+		return expires;
+	}
+	
+	public void setExpires(Date expires) {
+		this.expires = expires;
 	}
 	
 }

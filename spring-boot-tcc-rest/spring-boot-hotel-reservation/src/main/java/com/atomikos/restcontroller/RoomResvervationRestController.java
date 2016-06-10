@@ -1,5 +1,7 @@
 package com.atomikos.restcontroller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,10 @@ public class RoomResvervationRestController {
 	public ResponseEntity<RoomReservation> bookRoomReservation(
 			@RequestBody RoomReservation roomReservation) {
 		roomReservation.setState(State.BOOKED);
+		
+		Calendar expires = Calendar.getInstance();
+		expires.add(Calendar.DAY_OF_YEAR, 10);
+		roomReservation.setExpires(expires.getTime());
 		roomReservation = roomReservationRepository.save(roomReservation);
 		return new ResponseEntity<RoomReservation>(roomReservation,HttpStatus.CREATED);
 	}

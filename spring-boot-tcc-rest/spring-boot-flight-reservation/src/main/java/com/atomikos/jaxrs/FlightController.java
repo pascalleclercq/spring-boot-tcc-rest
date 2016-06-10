@@ -1,5 +1,7 @@
 package com.atomikos.jaxrs;
 
+import java.util.Calendar;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,20 +31,16 @@ public class FlightController {
     public Health health() {
         return new Health("Jersey: Up and Running!");
     }
-    
-//    @GET
-//    @Produces("application/json")
-//    public Flight flight() {
-//    	DateTime departure = new DateTime(2016, 8, 02, 12, 0, 0, 0);
-//    	DateTime arrival = departure.plus(Period.hours(2));
-//    	return new Flight(departure.toDate(), "Paris",arrival.toDate(),"New-York", State.BOOKED);
-//    }
   
     @POST
     @Produces("application/json")
     @Consumes("application/json")
     public Response bookFlight(Flight flight) {
     	flight.setState(State.BOOKED);
+    	Calendar expires = Calendar.getInstance();
+		expires.add(Calendar.DAY_OF_YEAR, 6);
+		flight.setExpires(expires.getTime());
+		
     	flightRepository.save(flight);
     	return Response.status(Status.CREATED).entity(flight).build();
     }
@@ -59,10 +57,10 @@ public class FlightController {
     }
     @DELETE
     @Path("/{flightId}")
-    @Produces("application/json")
-    public Response cancelFlight(Long flightId) {
+    @Produces("application/tcc")
+    @Consumes("application/tcc" )
+    public Response cancelFlight(@PathParam("flightId") Long flightId) {
     	Flight flight = flightRepository.findOne(flightId);
-    	flight.setState(State.CANCELLED);
     	flightRepository.delete(flight.getId());
     	return Response.status(Status.ACCEPTED).build();
     }
