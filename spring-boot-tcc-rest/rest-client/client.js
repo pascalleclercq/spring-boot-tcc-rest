@@ -15,7 +15,8 @@ if (args[0] && args[0].toUpperCase() == 'CANCEL') {
 	console.log("test confirm operation on coordinator");
 }
 
-setTimeout(function() {
+//later we confirm all (or cancel all).
+setTimeout( function() {
     var options = {
         host: 'localhost',
         path: path,
@@ -25,22 +26,26 @@ setTimeout(function() {
             'Content-Type': 'application/tcc+json'
         }
     };
-
+    
+    var bookedFlight = flight.getBookedFlight();
+    var roomReservation = hotel.getReservation();
+    
     var payload = {
+    		//TODO : Add expires in format ISO... for expiry
         "participantLinks": [{
-            "uri": "http://localhost:8080//flight/" + flight.getBookedFlight().id,
-            "expires": "2017-05-30T09:30:10Z"
+            "uri": "http://localhost:8080/flight/" + bookedFlight.id,
+            "expires": bookedFlight.expires
         }, {
-            "uri": "http://localhost:9090/hotel/" + hotel.getReservation().id,
-            "expires": "2017-05-30T09:30:10Z"
+            "uri": "http://localhost:9090/hotel/" + roomReservation.id,
+            "expires": roomReservation.expires
         }]
     };
 
-    callback = function(response) {
+    displayStatus = function(response) {
         console.log(`STATUS: ${response.statusCode}`);
     }
 
-    var req = http.request(options, callback);
+    var req = http.request(options, displayStatus);
     console.log('URL to call on coordinator http://' + options.host + options.path);
     console.log('With payload '+JSON.stringify(payload));
     req.write(JSON.stringify(payload));

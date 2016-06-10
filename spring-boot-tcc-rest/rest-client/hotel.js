@@ -1,7 +1,9 @@
 var http = require('http');
 
+var reservation = {};
+
 // book a room in a hotel
-var optionsHotel = {
+var options = {
 	host : 'localhost',
 	path : '/hotel',
 	port : '9090',
@@ -19,8 +21,8 @@ var room = {
 	"departure" : 1470139200000
 };
 
-var reservation;
-callbackHotel = function(response) {
+
+readResponseData = function(response) {
 	var str = ''
 	response.on('data', function(chunk) {
 		str += chunk;
@@ -32,7 +34,7 @@ callbackHotel = function(response) {
 	});
 }
 
-var req = http.request(optionsHotel, callbackHotel);
+var req = http.request(options, readResponseData);
 // This is the data we are posting, it needs to be a string or a buffer
 req.write(JSON.stringify(room));
 req.end();
