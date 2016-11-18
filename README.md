@@ -90,4 +90,4 @@ you should be albe to see : INFOS: Setting the server's publish address to be ht
 
 
 # Power feature : 
-Commercial version of Atomikos provides a simpler way to start the coordinator using one simple command.
+The commercial version ExtremeTransactions (https://www.atomikos.com/Main/ExtremeTransactions) provides a built-in executable coordinator service.
