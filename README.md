@@ -2,12 +2,13 @@
 Sample demo for Atomikos TCC Rest
 
 To start the coordinator, create a maven project and add this dependency:
+```xml
 <dependency>
   <groupId>com.atomikos</groupId>
-	<artifactId>transactions-tcc-rest</artifactId>
+  <artifactId>transactions-tcc-rest</artifactId>
   <version>LATEST</version>
 </dependency>
-
+```
 where LATEST correspond to the latest possible version found.
 
 maven will grab automatically all required dependencies transitively.
