@@ -87,3 +87,7 @@ then simply perform at the root of the project :
 mvn exec:exec
 ```
 you should be albe to see : INFOS: Setting the server's publish address to be http://localhost:8080
+
+
+# Power feature : 
+Commercial version of Atomikos provides a simpler way to start the coordinator using one simple command.
