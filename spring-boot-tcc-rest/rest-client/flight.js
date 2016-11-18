@@ -14,9 +14,9 @@ var options = {
 
 //book a flight
 var flight = {
-	"departure" : 1470132000000,
+	"departure" : "2016-06-09T11:27:01Z",
 	"departureAirport" : "Paris",
-	"landing" : 1470139200000,
+	"landing" : "2016-06-09T21:27:01Z",
 	"landingAirort" : "New-York"
 };
 

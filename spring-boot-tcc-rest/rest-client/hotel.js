@@ -15,10 +15,10 @@ var options = {
 
 // book a hotel
 var room = {
-	"arrival" : 1470132000000,
+	"arrival" : "2016-06-09T22:27:01Z",
 	"roomNumber" : "101",
 	"numberOfPerson" : 2,
-	"departure" : 1470139200000
+	"departure" : "2016-06-19T11:27:01Z"
 };
 
 
