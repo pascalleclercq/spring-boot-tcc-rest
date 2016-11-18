@@ -9,11 +9,12 @@ To start the coordinator, create a maven project and add this dependency:
   <version>LATEST</version>
 </dependency>
 ```
-where LATEST correspond to the latest possible version found.
+where LATEST corresponds to the latest possible version found.
 
 maven will grab automatically all required dependencies transitively.
 
 Then start the Coordinator HTTP server like this :
+
 java com.atomikos.icatch.tcc.rest.Server 8080
 
-where 8080 reoresents the port of the http server.
+where 8080 represents the port of the http server.
