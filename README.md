@@ -90,4 +90,4 @@ you should be albe to see : INFOS: Setting the server's publish address to be ht
 
 
 # Power feature : 
-The commercial version ExtremeTransactions (https://www.atomikos.com/Main/ExtremeTransactions) provides a built-in executable coordinator service.
+The commercial version ExtremeTransactions (https://www.atomikos.com/Main/ExtremeTransactions) provides a built-in executable coordinator service that is straighforward to launch.
